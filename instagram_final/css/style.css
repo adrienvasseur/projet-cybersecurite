@@ -1,0 +1,347 @@
+
+/* ============================================================
+   RESET & VARIABLES
+   ============================================================ */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#000;
+  --bg-right:#1a1a1a;
+  --input-bg:#262626;
+  --input-border:#363636;
+  --input-border-focus:#a8a8a8;
+  --text:#fff;
+  --text-muted:#a8a8a8;
+  --text-link:#e0f1ff;
+  --btn-blue:#0095f6;
+  --btn-blue-hover:#1aa3ff;
+  --accent-orange:#f97316;
+  --accent-pink:#e1306c;
+  --radius:12px;
+  --font:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+
+body{
+  background:var(--bg);
+  font-family:var(--font);
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+  overflow:hidden;
+}
+
+/* ============================================================
+   PAGES
+   ============================================================ */
+.page{display:none;width:100%;min-height:100vh}
+.page.active{display:flex}
+
+/* ============================================================
+   PAGE LOGIN — 2 colonnes
+   ============================================================ */
+#page-login{flex-direction:row}
+
+/* --- LEFT --- */
+.login-left{
+  flex:1;
+  background:#000;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:60px 72px;
+  position:relative;
+  overflow:hidden;
+}
+.login-left::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 55% 45% at 35% 65%,rgba(225,48,108,.10) 0%,transparent 70%),
+    radial-gradient(ellipse 40% 40% at 65% 30%,rgba(249,115,22,.07) 0%,transparent 60%);
+  pointer-events:none;
+}
+
+.ig-icon{
+  width:52px;height:52px;margin-bottom:36px;
+  background:linear-gradient(135deg,#f9a825 0%,#f97316 25%,#e1306c 60%,#833ab4 100%);
+  border-radius:13px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.ig-icon svg{width:30px;height:30px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+.tagline{font-size:40px;font-weight:700;line-height:1.22;max-width:500px;letter-spacing:-.5px}
+.tagline .hl-o{color:var(--accent-orange)}
+.tagline .hl-p{color:var(--accent-pink)}
+
+/* Card stack */
+.card-area{margin-top:44px;position:relative;height:340px}
+.card-stack{position:relative;width:320px;height:310px}
+.pcard{
+  position:absolute;border-radius:16px;overflow:hidden;
+  border:1.5px solid rgba(255,255,255,.07);
+  box-shadow:0 20px 50px rgba(0,0,0,.6);
+  display:flex;align-items:center;justify-content:center;font-size:44px;
+}
+.pcard-1{width:155px;height:215px;left:15px;top:40px;transform:rotate(-4deg);background:linear-gradient(145deg,#1a1a3e,#0d1b2a);z-index:1}
+.pcard-2{width:165px;height:235px;left:82px;top:10px;transform:rotate(1.5deg);background:linear-gradient(145deg,#1c0a3e,#0a0a2e);z-index:3}
+.pcard-3{width:148px;height:205px;right:5px;top:52px;transform:rotate(5.5deg);background:linear-gradient(145deg,#3b0764,#7c1d6f);z-index:2}
+
+.bubble{
+  position:absolute;border-radius:24px;
+  display:flex;align-items:center;gap:6px;
+  box-shadow:0 4px 20px rgba(0,0,0,.5);z-index:10;
+}
+.bubble-emoji{top:5px;left:82px;background:rgba(20,20,40,.92);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1);padding:8px 14px;font-size:18px;letter-spacing:3px}
+.bubble-heart{bottom:75px;left:-4px;background:linear-gradient(135deg,#e1306c,#f97316);width:46px;height:46px;border-radius:50%;justify-content:center;font-size:20px}
+.bubble-check{top:118px;right:-4px;background:#22c55e;padding:5px 10px;font-size:12px;font-weight:700;color:#fff;gap:4px}
+
+.story-row{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10}
+.s-dot{width:34px;height:34px;border-radius:50%}
+.s-dot:nth-child(1){background:linear-gradient(135deg,#f97316,#e1306c)}
+.s-dot:nth-child(2){background:linear-gradient(135deg,#a855f7,#3b82f6)}
+.s-dot:nth-child(3){background:linear-gradient(135deg,#22c55e,#3b82f6)}
+.s-dot:nth-child(4){background:linear-gradient(135deg,#e1306c,#a855f7)}
+.s-heart{width:34px;height:34px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:18px}
+
+/* --- RIGHT --- */
+.login-right{
+  width:476px;flex-shrink:0;
+  background:var(--bg-right);
+  border-left:1px solid rgba(255,255,255,.05);
+  display:flex;align-items:center;justify-content:center;
+  padding:40px 44px;
+}
+.login-box{width:100%;max-width:348px}
+.login-title{font-size:21px;font-weight:600;margin-bottom:22px;letter-spacing:-.2px}
+
+.field{
+  width:100%;padding:13px 14px;
+  background:var(--input-bg);
+  border:1px solid var(--input-border);
+  border-radius:var(--radius);
+  color:var(--text);font-size:14px;outline:none;
+  transition:border-color .15s,box-shadow .15s;
+  margin-bottom:9px;caret-color:var(--btn-blue);
+}
+.field::placeholder{color:var(--text-muted)}
+.field:focus{border-color:var(--input-border-focus);box-shadow:0 0 0 2px rgba(168,168,168,.12)}
+.field.error{border-color:#ed4956 !important;box-shadow:0 0 0 2px rgba(237,73,86,.12)}
+
+.pwd-wrap{position:relative;margin-bottom:9px}
+.pwd-wrap .field{margin-bottom:0;padding-right:42px}
+.eye-btn{position:absolute;right:11px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-muted);padding:4px;display:flex;align-items:center;transition:color .15s}
+.eye-btn:hover{color:var(--text)}
+.eye-btn svg{width:17px;height:17px}
+
+.err-msg{font-size:12px;color:#ed4956;margin-bottom:6px;padding:0 2px;display:none}
+.err-msg.show{display:block}
+
+.btn-primary{
+  width:100%;padding:12px;background:var(--btn-blue);
+  color:#fff;font-size:15px;font-weight:600;border:none;
+  border-radius:var(--radius);cursor:pointer;margin-top:4px;margin-bottom:14px;
+  transition:background .2s,transform .1s;
+}
+.btn-primary:hover{background:var(--btn-blue-hover)}
+.btn-primary:active{transform:scale(.99)}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed}
+
+.forgot{display:block;text-align:center;font-size:14px;font-weight:600;color:var(--text);text-decoration:none;margin-bottom:22px;cursor:pointer}
+.forgot:hover{text-decoration:underline}
+
+.sep{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.sep-l{flex:1;height:1px;background:rgba(255,255,255,.1)}
+.sep-t{font-size:12px;color:var(--text-muted);font-weight:700;letter-spacing:1px}
+
+.btn-outline{
+  width:100%;padding:12px;background:transparent;
+  color:var(--text);font-size:14px;font-weight:600;
+  border:1px solid rgba(255,255,255,.15);border-radius:var(--radius);
+  cursor:pointer;margin-bottom:9px;display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:border-color .2s,background .2s;
+}
+.btn-outline:hover{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.3)}
+
+.btn-outline-blue{
+  width:100%;padding:12px;background:transparent;
+  color:#60a5fa;font-size:14px;font-weight:600;
+  border:1px solid rgba(96,165,250,.35);border-radius:var(--radius);
+  cursor:pointer;margin-bottom:22px;
+  transition:border-color .2s,background .2s;
+}
+.btn-outline-blue:hover{background:rgba(96,165,250,.06);border-color:rgba(96,165,250,.6)}
+
+.meta-wrap{text-align:center}
+.meta-row{display:flex;align-items:center;justify-content:center;gap:6px;color:var(--text-muted);font-size:14px;font-weight:500;margin-bottom:8px}
+.meta-row svg{width:18px;height:18px;fill:var(--text-muted)}
+.meta-txt{font-size:11.5px;color:var(--text-muted);line-height:1.6;max-width:290px;margin:0 auto}
+.meta-txt a{color:#60a5fa;text-decoration:none;font-weight:600}
+.meta-txt a:hover{text-decoration:underline}
+
+/* ============================================================
+   PAGE SIGNUP — centré
+   ============================================================ */
+#page-signup{
+  background:#000;
+  flex-direction:column;align-items:center;justify-content:center;
+  min-height:100vh;padding:20px;
+}
+
+.signup-card{
+  background:var(--bg-right);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;
+  padding:36px 36px 28px;
+  width:100%;max-width:380px;
+}
+
+.ig-logo-text{
+  display:block;text-align:center;
+  font-size:30px;font-style:italic;font-weight:700;
+  font-family:Georgia,serif;
+  background:linear-gradient(90deg,#f9a825,#f97316,#e1306c,#833ab4);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:6px;
+}
+
+.signup-sub{font-size:17px;font-weight:600;color:var(--text-muted);text-align:center;line-height:1.4;margin-bottom:18px}
+
+/* Dots */
+.dots{display:flex;gap:6px;justify-content:center;margin-bottom:22px}
+.dot{width:6px;height:6px;border-radius:50%;background:#363636;transition:background .3s}
+.dot.active{background:var(--btn-blue)}
+.dot.done{background:rgba(0,149,246,.4)}
+
+/* Step */
+.step{display:none}
+.step.active{display:block}
+
+/* Contact tabs */
+.ctabs{display:flex;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:14px}
+.ctab{flex:1;padding:9px;font-size:13px;font-weight:600;text-align:center;color:var(--text-muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s}
+.ctab.active{color:var(--text);border-bottom:2px solid var(--text)}
+
+/* DOB */
+.dob-title{font-size:18px;font-weight:700;text-align:center;margin-bottom:6px}
+.dob-desc{font-size:13px;color:var(--text-muted);text-align:center;line-height:1.5;margin-bottom:16px}
+.dob-row{display:flex;gap:8px}
+.dob-row select{
+  flex:1;padding:11px 8px;
+  background:var(--input-bg);border:1px solid var(--input-border);
+  border-radius:var(--radius);color:var(--text);font-size:13px;outline:none;cursor:pointer;
+}
+.dob-row select:focus{border-color:var(--input-border-focus)}
+
+/* Username hint */
+.hint{font-size:12px;color:var(--text-muted);margin-top:4px;margin-bottom:6px}
+
+/* Password hint */
+.pwd-hint{font-size:12px;color:var(--text-muted);line-height:1.5;margin-top:4px;margin-bottom:6px}
+
+/* Confirm step */
+.confirm-title{font-size:20px;font-weight:700;text-align:center;margin-bottom:8px}
+.confirm-sub{font-size:14px;color:var(--text-muted);text-align:center;line-height:1.5;margin-bottom:16px}
+.code-field{letter-spacing:10px;font-size:20px;text-align:center}
+
+/* Terms */
+.terms{font-size:12px;color:var(--text-muted);text-align:center;line-height:1.55;margin:12px 0 4px}
+.terms a{color:#e0f1ff;text-decoration:none;font-weight:600}
+
+/* Back link */
+.back-link{display:block;text-align:center;font-size:14px;color:var(--btn-blue);font-weight:600;cursor:pointer;margin-top:10px}
+.back-link:hover{text-decoration:underline}
+
+/* Already card */
+.already-card{
+  background:var(--bg-right);border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;padding:16px;width:100%;max-width:380px;
+  text-align:center;font-size:14px;color:var(--text-muted);margin-top:10px;
+}
+.already-card a{color:var(--btn-blue);font-weight:600;text-decoration:none;cursor:pointer}
+
+/* ============================================================
+   BDD STATUS BADGE
+   ============================================================ */
+.db-badge{
+  position:fixed;bottom:16px;left:16px;
+  background:rgba(0,0,0,.8);border:1px solid rgba(255,255,255,.1);
+  border-radius:8px;padding:6px 12px;font-size:11px;color:var(--text-muted);
+  backdrop-filter:blur(8px);z-index:500;display:flex;align-items:center;gap:6px;
+}
+.db-dot{width:7px;height:7px;border-radius:50%;background:#22c55e}
+
+/* ============================================================
+   MODAL PIRATE
+   ============================================================ */
+.overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.82);z-index:9000;
+  align-items:center;justify-content:center;
+  backdrop-filter:blur(6px);
+}
+.overlay.show{display:flex;animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+.modal{
+  background:#1c1c2e;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:20px;padding:36px 30px;
+  max-width:390px;width:92%;text-align:center;
+  animation:popIn .35s cubic-bezier(.17,.67,.38,1.4);
+  box-shadow:0 40px 100px rgba(0,0,0,.7);
+}
+@keyframes popIn{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+
+.modal-skull{font-size:54px;display:block;margin-bottom:12px;animation:wobble .6s ease .3s both}
+@keyframes wobble{0%,100%{transform:rotate(0)}20%{transform:rotate(-12deg)}40%{transform:rotate(12deg)}60%{transform:rotate(-8deg)}80%{transform:rotate(6deg)}}
+
+.modal-title{font-size:20px;font-weight:700;margin-bottom:8px}
+.modal-msg{font-size:15px;color:#e1306c;font-weight:600;margin-bottom:18px;line-height:1.4}
+
+.modal-data{
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
+  border-radius:12px;padding:14px 16px;text-align:left;
+  margin-bottom:14px;font-size:13px;color:var(--text-muted);line-height:2;
+}
+.modal-data b{color:var(--text);font-weight:600}
+
+.modal-tip{font-size:12px;color:#737390;margin-bottom:20px;line-height:1.5}
+
+.btn-pirate{
+  background:linear-gradient(135deg,#e1306c,#f97316);
+  color:#fff;border:none;border-radius:12px;
+  padding:12px 32px;font-size:14px;font-weight:700;cursor:pointer;
+  transition:opacity .2s;
+}
+.btn-pirate:hover{opacity:.88}
+
+/* ============================================================
+   DB VIEWER (debug panel)
+   ============================================================ */
+.db-panel{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);
+  z-index:8000;align-items:center;justify-content:center;padding:20px;
+}
+.db-panel.open{display:flex}
+.db-inner{
+  background:#111;border:1px solid rgba(255,255,255,.12);border-radius:16px;
+  padding:28px;max-width:500px;width:100%;max-height:80vh;overflow-y:auto;
+}
+.db-inner h2{font-size:16px;font-weight:700;margin-bottom:16px;color:#fff}
+.db-user{
+  background:#1a1a2e;border:1px solid rgba(255,255,255,.08);border-radius:10px;
+  padding:12px 14px;margin-bottom:10px;font-size:12px;color:var(--text-muted);line-height:1.9;
+}
+.db-user b{color:#fff}
+.db-close{background:transparent;border:1px solid rgba(255,255,255,.15);color:#fff;border-radius:8px;padding:8px 20px;cursor:pointer;font-size:13px;margin-top:6px}
+
+/* ============================================================
+   NOTIFICATION TOAST
+   ============================================================ */
+.toast{
+  position:fixed;top:20px;left:50%;transform:translateX(-50%);
+  background:#1c1c2e;border:1px solid rgba(255,255,255,.1);
+  border-radius:10px;padding:12px 20px;font-size:13px;color:#fff;
+  z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;
+  white-space:nowrap;
+}
+.toast.show{opacity:1}
